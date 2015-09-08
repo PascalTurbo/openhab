@@ -1,0 +1,19 @@
+// Check if there are KNX Temperature Values not updated for at least 30min
+// And send a warning using prowl
+rule "warnIfNoTemperatureWasUpdated"
+when
+  Time cron "0 /15 * * * ?"
+then
+  TemperatureKNX?.members.forEach[element1,index1|
+    if (!element1.updatedSince(now.minusMinutes(60)) {
+      var String subject = "Heating Control"
+      var String message = "State of KNX Temperature Item: "+element1.name+" has not been updated since: "+element1.lastUpdate
+      logError(subject,message)
+      pushNotification("1386da9401a1f42b965b40d73e46d3f13409d283", subject, message, 2)
+    } else if (!element1.updatedSince(now.minusMinutes(30)) {
+      var String subject = "Heating Control"
+      var String message = "State of KNX Temperature Item: "+element1.name+" has not been updated since: "+element1.lastUpdate
+      logWarn(subject,message)
+      pushNotification("1386da9401a1f42b965b40d73e46d3f13409d283", subject, message, 1)    }
+  ]
+end

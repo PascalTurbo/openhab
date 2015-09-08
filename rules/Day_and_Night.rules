@@ -1,0 +1,17 @@
+import org.openhab.core.library.types.*
+
+rule "Publish that the day has begun"
+when
+	Item Sunrise_Event received update ON
+then
+	sendCommand(IsNight, OFF )
+	sendCommand(IsDay, ON)
+end
+
+rule "Publish that the night has begun"
+when
+	Item Sunset_Event received update ON
+then
+	sendCommand(IsNight, ON )
+	sendCommand(IsDay, OFF)
+end

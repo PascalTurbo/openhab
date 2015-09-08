@@ -1,0 +1,11 @@
+Number Sensor_GF_Corridor_Stairs      "Temperature Sensor GF Corridor Stairs"    (TemperatureSensors)          { onewire="deviceId=28.60C584050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+Number Sensor_GF_Kitchen              "Temperature Sensor GF Kitchen"            (TemperatureSensors)          { onewire="deviceId=28.FD6685050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+Number Sensor_GF_LivingRoom           "Temperature Sensor GF LivingRoom"         (TemperatureSensors)          { onewire="deviceId=28.12FD84050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+
+Number Sensor_FF_Corridor_Stairs      "Temperature Sensor FF Corridor Stairs"    (TemperatureSensors)          { onewire="deviceId=28.AC0585050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+Number Sensor_FF_Office_Door          "Temperature Sensor FF Office_Door"        (TemperatureSensors)          { onewire="deviceId=28.042D85050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+Number Sensor_FF_BedRoom              "Temperature Sensor FF BedRoom"            (TemperatureSensors)          { onewire="deviceId=28.406785050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+Number Sensor_FF_DressingRoom         "Temperature Sensor FF DressingRoom"       (TemperatureSensors)          { onewire="deviceId=28.2FBD84050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+
+Number Sensor_OD_Window_Livingroom    "Temperature Sensor OD Livingroom"         (TemperatureSensors)          { onewire="deviceId=28.04AA85050000;propertyName=temperature;ignore85CPowerOnResetValues;tukeyfilter" }
+

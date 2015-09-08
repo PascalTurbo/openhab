@@ -1,0 +1,17 @@
+/* KNX Sensors */
+Number Temperature_GF_LivingRoom_DiningRoom    "Temperatur Esszimmer [%.1f °C]"       <temperature> (Temperature, TemperatureKNX, GF_LivingRoom, GF_DiningRoom)    { knx="4/0/0" }
+Number Temperature_FF_Corridor_Window          "Temperatur Flur Fenster [%.1f °C]"    <temperature> (Temperature, TemperatureKNX, FF_Corridor)                     { knx="<(60)1/7/3" }
+Number Temperature_FF_Corridor_Bath            "Temperatur Flur Innen [%.1f °C]"      <temperature> (Temperature, TemperatureKNX, FF_Corridor)                     { knx="<(60)1/7/2" }
+
+/* Dummy Items - OneWire -> KNX */
+Number Temperature_GF_LivingRoom               "Temperatur Wohnzimmer [%.1f °C]"               <temperature> (Temperature, TemperatureKNX, GF_LivingRoom)    { knx="4/0/8" }
+Number Temperature_GF_Corridor_Stairs          "Temperatur Flur unten vor Treppe [%.1f °C]"    <temperature> (Temperature, TemperatureKNX, GF_Corridor)      { knx="4/0/1" }
+Number Temperature_GF_Kitchen                  "Temperatur Küche [%.1f °C]"                    <temperature> (Temperature, TemperatureKNX, GF_Kitchen)       { knx="4/0/2" }
+
+Number Temperature_FF_Corridor_Stairs          "Temperatur Flur oben Treppe [%.1f °C]"     <temperature> (Temperature, TemperatureKNX, FF_Corridor)        { knx="4/0/3" }
+Number Temperature_FF_Office                   "Temperatur Büro [%.1f °C]"                 <temperature> (Temperature, TemperatureKNX, FF_Office)          { knx="4/0/4" }
+Number Temperature_FF_BedRoom                  "Temperatur Schlafzimmer [%.1f °C]"         <temperature> (Temperature, TemperatureKNX, FF_BedRoom)         { knx="4/0/5" }
+Number Temperature_FF_DressingRoom             "Temperatur Ankleidezimmer [%.1f °C]"       <temperature> (Temperature, TemperatureKNX, FF_DressingRoom)    { knx="4/0/6" }
+
+Number Temperature_OD_Window_Livingroom        "Außentemperatur neben Wohnzimmerfenster [%.1f °C]" <temperature> (Temperature, TemperatureKNX, Outside)    { knx="9.001:4/0/7" }
+

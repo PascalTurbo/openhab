@@ -1,0 +1,85 @@
+import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.*
+import org.openhab.core.persistence.*
+
+/* 
+ * Switch the different Operating Modes based on the information
+ * gathered by other rules
+ *
+ * This rules checks the following states every 5 minutes 
+ * and adjust the operating modes of the rooms:
+ * 
+ * Heater_Mode: Is primarily set based on the outside temperature
+ * Heater_Presence: Describes if someone is at home
+ *
+ */
+
+// Function3 bedeutet, dass die Funktion 3 Parameter erwartet
+val org.eclipse.xtext.xbase.lib.Functions$Function3 setHeaterOperatingModes = [
+    int HeaterComfortZoneValue,
+    int HeaterOutbuildingsValue,
+    int HeaterManualZoneValue |
+    
+    HeaterComfortZone?.members.forEach[element1,index1|
+      sendCommand(element1, HeaterComfortZoneValue)
+    ]
+    HeaterOutbuildings?.members.forEach[element1,index1|
+      sendCommand(element1, HeaterOutbuildingsValue)
+    ]
+    // Other to antifreeze
+    HeaterManualZone?.members.forEach[element1,index1|
+      sendCommand(element1, HeaterManualZoneValue)
+    ]
+]
+
+
+
+rule "Heating Switch Opeating Mode"
+when
+  Time cron "0 /5 * * * ?"
+then
+  var hour = now.getHourOfDay
+  var minute = now.getMinuteOfHour
+  var time = hour * 100 + minute
+
+  // 0 : Alle Heizungen aus
+  if (Heater_Mode.state == 0) {
+
+    sendCommand(Operating_Mode_Summer, ON)
+    HeaterOperatingModes?.members.forEach[element1,index1|
+      sendCommand(element1, 4)
+    ]
+
+    // 1 : Nur heizen bei Anwesenheit. Bei Abwesenheit absenken, Nachts komplett aus
+    // Unterscheide zwischen den verschiedenen Raumgruppen
+    } else if (Heater_Mode.state == 1) {
+
+      sendCommand(Operating_Mode_Summer, OFF)
+      // Check if it's night. Night is between 22:00 and 06:00 
+      if ((time >= 2200 && time <= 2400) || (time >= 0 && time <= 600)) {
+        HeaterOperatingModes?.members.forEach[element1,index1|
+          sendCommand(element1, 3)
+        ]
+      } else {
+        // Check if someone is present
+        if (Heater_Presence.state == ON) {
+          setHeaterOperatingModes.apply(1,2,4)
+          } else {
+            setHeaterOperatingModes.apply(2,2,4)
+          }
+      }
+
+      // 2 : Nur heizen bei Anwesenheit. Bei Abwesenheit und Nachts absenken
+      } else if (Heater_Mode.state == 2) {
+        // Check if it's night. Night is between 22:00 and 06:00 
+        if ((time >= 2200 && time <= 2400) || (time >= 0 && time <= 600)) {
+          setHeaterOperatingModes.apply(2,3,4)
+        } else {
+          setHeaterOperatingModes.apply(1,2,4)
+        }
+        
+        // 3 : Immer heizen
+        } else if (Heater_Mode.state == 3) {
+          setHeaterOperatingModes.apply(1,1,3)      
+        }
+end

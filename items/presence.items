@@ -1,0 +1,6 @@
+Switch Is_Someone_Present         "Ist jemand im Haus"      (Presence) { knx="5/3/0" } 
+Switch I_am_on_holiday            "Ich habe Urlaub"         (Presence)
+Switch I_am_on_vacation           "Ich bin im Urlaub"       (Presence)
+
+Number Presence_State_Pulsed      "Impuls für Anwensenheit" (Presence)
+Switch Presence_State_TV          "Anwesenheit: TV"         (PresenceStateSwitches)

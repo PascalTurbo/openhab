@@ -1,0 +1,46 @@
+Group All
+
+/* Floors */
+Group GroundFloor (All)
+Group FirstFloor (All)
+
+/* Rooms */
+Group GF_Kitchen      "Küche"       <kitchen>	    (GroundFloor)
+Group GF_LivingRoom   "Wohnzimmer"	<livingroom> 	(GroundFloor)
+Group GF_DiningRoom   "Esszimmer"	  <diningroom>	(GroundFloor)
+Group GF_Corridor     "Flur"		    <corridor>    (GroundFloor)
+Group GF_Laundry      "Waschküche"	<laundry>     (GroundFloor)
+Group GF_Bath         "Bad"         <bath>		    (GroundFloor)
+
+Group FF_Office		       "Büro"			      <office>		      (FirstFloor)
+Group FF_Corridor	       "Flur"			      <corridor>		    (FirstFloor)
+Group FF_Bath 		       "Bad"			      <bath>			      (FirstFloor)
+Group FF_DressingRoom    "Ankleidezimmer"	<dressing_room>		(FirstFloor)
+Group FF_GuestsRoom 	   "Gästezimmer"		<bedroom_guests>	(FirstFloor)
+Group FF_BedRoom 	       "Schlafzimmer"		<bedroom>		      (FirstFloor)
+
+/* Technical Groups */
+Group Lights  (All)
+Group Sockets (ALL)
+Group Scenes  (All)
+
+Group TechnicalItems
+
+Group Presence              (TechnicalItems)
+Group PresenceStateSwitches (TechnicalItems)
+Group NetworkDevices        (TechnicalItems)
+Group MobilePhones          (NetworkDevices)
+
+Group Heater                (TechnicalItems)
+
+Group HeaterOperatingModes  (Heater)
+Group HeaterComfortZone     (Heater)
+Group HeaterOutbuildings    (Heater)
+Group HeaterManualZone      (Heater)
+
+Group Temperature (TechnicalItems)
+
+/* No Group, they shouldn't be persisted */
+Group TemperatureSensors
+Group TemperatureKNX
+

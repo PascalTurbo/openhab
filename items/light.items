@@ -1,0 +1,50 @@
+/* Lights */
+
+/* Ground Floor */
+
+/* Living Room */
+Dimmer Light_GF_LivingRoom_Ceiling      "Deckenlicht"       (GF_LivingRoom, Lights)      { knx="<1.001:0/1/1, 5.001:0/1/8+<0/1/10" }
+Dimmer Light_GF_LivingRoom_Wall         "Wandleuchten"      (GF_LivingRoom, Lights)      { knx="<1.001:0/1/7, 5.001:0/1/9+<0/1/11" }
+
+/* Kitchen */
+Switch Light_GF_Kitchen_Countertop      "Arbeitsplatte"     (GF_Kitchen, Lights)      { knx="0/0/1+0/0/4" }
+Switch Light_GF_Kitchen_Ceiling         "Deckenlicht"       (GF_Kitchen, Lights)      { knx="0/0/2+0/0/4" }
+Switch Light_GF_Kitchen_Bar             "Theke"             (GF_Kitchen, Lights)      { knx="0/0/3+0/0/4" }
+
+/* Dining Room */
+Dimmer Light_GF_DiningRoom_Ceiling      "Deckenlicht"                 (GF_DiningRoom, Lights)    { knx="<1.001:0/2/2, 5.001:0/2/0+<0/2/4" }
+
+/* Corridor */
+Switch Light_GF_Corridor                "Flur"                        (GF_Corridor, Lights)      { knx="0/3/0+2/0/0" }
+
+/* Laundry */
+Switch Light_GF_Laundry_Wall            "Waschküche Wandleuchte"      (GF_Laundry, Lights)       { knx="0/4/0+0/4/2" }
+Switch Light_GF_Laundry_Ceiling         "Waschküche Deckenlicht"      (GF_Laundry, Lights)       { knx="0/4/1+0/4/2" }
+
+/* Bath */
+Switch Light_GF_Bath                    "Bad"                         (GF_Bath, Lights)          { knx="0/5/0" }
+
+/* First Floor */
+
+/* Office */
+Dimmer Light_FF_Office_Desk             "Schreibtisch"              (FF_Office, Lights)         { knx="1.001:1/4/2, 5.001:1/4/3" }
+Switch Light_FF_Office_TV               "Fernsehecke"               (FF_Office, Lights)         { knx="1/4/0" }
+Number Scene_Office                     "Szenen Büro"               (FF_Office, Scenes)         { knx="17.001:1/4/4" }
+
+/* Bath */
+Switch Light_FF_Bath                    "Badezimmer"                (FF_Bath, Lights)           { knx="1/2/0" }
+
+/* Dressing Room */
+Switch Light_FF_DressingRoom            "Ankleidezimmer"            (FF_DressingRoom, Lights)   { knx="1/0/0" }
+
+/* Guest Room */
+Switch Light_FF_GuestsRoom_ceiling      "Gästezimmer Deckenlicht"   (FF_GuestsRoom, Lights)     { knx="1/1/1+1/1/3" }
+Switch Light_FF_GuestsRoom_leftBed      "Gästezimmer linkes Bett"   (FF_GuestsRoom, Lights)     { knx="1/1/0+1/1/3" }
+Switch Light_FF_GuestsRoom_rightBed     "Gästezimmer rechtes Bett"  (FF_GuestsRoom, Lights)     { knx="1/1/2+1/1/3" }
+
+/* Bedroom */
+Switch Light_FF_BedRoom                 "Schlafzimmer"              (FF_BedRoom, Lights)        { knx="1/1/2+1/1/3" }
+
+/* Corridor */
+Switch Light_FF_Corridor                "Flur"                      (FF_Corridor, Lights)       { knx="1/7/0" }
+

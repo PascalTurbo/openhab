@@ -1,0 +1,11 @@
+/* Sockets */
+
+/* Ground Floor */
+
+/* Livingroom */
+
+Switch Socket_GF_LivingRoom_TV                  "Steckdose Fernseher"           (GF_LivingRoom, Sockets)      { knx="0/1/3+<0/1/15" }
+Switch Socket_GF_LivingRoom_TV_Controll         "Steckdose Schaltlogik"         (TechnicalItems)              { knx="0/1/13" }
+Switch Socket_GF_LivingRoom_TV_Controll_LED     "Steckdose Schaltlogik LED"     (TechnicalItems)              { knx="0/1/14" }
+Number Socket_GF_LivingRoom_TV_Controll_State	  "Steckdose Schaltlogik Status"	(TechnicalItems)
+

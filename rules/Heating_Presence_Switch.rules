@@ -1,0 +1,48 @@
+import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.*
+import org.openhab.core.persistence.*
+
+/* Check periodically if someone is presence 
+ * and switch the Heater_Presence if presence changed
+ * This rule is needed to avoid flapping of heater 
+ * if presence state flappes
+ */
+
+var Timer PRESENT_CHECK_TIMER
+
+ // Wenn siche der Anwesenheits-Status ändert, dann entsprechend Agieren
+rule "Switch Heater if Present State changed"
+when
+  Item Is_Someone_Present changed
+then
+  var hour = now.getHourOfDay
+  var minute = now.getMinuteOfHour
+  var time = hour * 100 + minute
+  
+    if (Is_Someone_Present.state == ON) {
+      // Prüfe ob der Status die letzten 20min gegolten hat
+      logInfo("Heating Control", "Someone is present. Will come back in 21min to check for flapping")
+      if (PRESENT_CHECK_TIMER != null) {
+        PRESENT_CHECK_TIMER.cancel
+        PRESENT_CHECK_TIMER = null
+      }
+      PRESENT_CHECK_TIMER = createTimer(now.plusMinutes(21)) [|
+        if (!Is_Someone_Present.changedSince(now.minusMinutes(15))) {
+          sendCommand(Heater_Presence, ON)
+        }
+      ]
+    } else {
+      // Prüfe ob der Status die letzten 30min gegolten hat
+      logInfo("Heating Control", "Nobody is present. Will come back in 31min to check for flapping")
+      if (PRESENT_CHECK_TIMER != null) {
+        PRESENT_CHECK_TIMER.cancel
+        PRESENT_CHECK_TIMER = null
+      }
+      
+      PRESENT_CHECK_TIMER = createTimer(now.plusMinutes(31)) [|
+        if (!Is_Someone_Present.changedSince(now.minusMinutes(30))) {
+          sendCommand(Heater_Presence, OFF)
+        }
+      ]
+    }
+end

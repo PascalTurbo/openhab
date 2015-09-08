@@ -1,0 +1,12 @@
+/* Date and Time */
+DateTime Date "Date and Time: [%1$tA, %1$td.%1$tm.%1$tY %1$tT]"  <calendar> (TechnicalItems)   { ntp="Europe/Berlin:de_DE" }
+
+Switch IsDay        "Is day"       (TechnicalItems) { knx="5/0/2" }
+Switch IsNight      "Is night"     (TechnicalItems) { knx="5/0/3" }
+
+/* Astro Binding */
+DateTime Sunrise_Time   "Sunrise [%1$tH:%1$tM]"  {astro="planet=sun, type=rise, property=start"}
+DateTime Sunset_Time    "Sunset [%1$tH:%1$tM]"   {astro="planet=sun, type=set, property=start"}
+
+Switch   Sunrise_Event                           {astro="planet=sun, type=rise, property=start"}
+Switch   Sunset_Event                            {astro="planet=sun, type=set, property=start"}

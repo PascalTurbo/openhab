@@ -1,0 +1,54 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+
+// Rules based on OutDoor Temperature
+// Execute every 15min
+rule "Heating Switch Heter Mode based on outdoor temperature"
+when
+  Time cron "0 /15 * * * ?"
+then
+  var avrgTemperatueThreeDays = Temperature_OD_Window_Livingroom.averageSince(now.minusDays(3))
+  var maxTemperatureThreeDays = Temperature_OD_Window_Livingroom.maximumSince(now.minusDays(3)).state as DecimalType
+  var minTemperatureOneDay = Temperature_OD_Window_Livingroom.minimumSince(now.minusDays(1)).state as DecimalType
+  var currentTemperature = Temperature_OD_Window_Livingroom.averageSince(now.minusMinutes(15))
+
+  var Number switchOffTemperature = 20.0
+  var Number switchOverTemperature = 16.0
+  var Number winterLimitTemperature = 5.0
+  var Number extremeTemperature = -10.0
+
+  /* 
+   * The following Heater Modes are encapsulated into one rule
+   * just for avoiding flipping through multiple modes in one execution of the rule
+   *
+   * Heater Mode 0 
+   * IF current Outdoor Temperature > switchOffTemperature
+   *
+   * Heater Mode 1 
+   * IF maxTemperatureThreeDays < switchOffTemperature
+   * AND avrgTemperatueThreeDays < switchOverTemperature
+   *
+   * Heater Mode 2
+   * IF Heater Mode 1 
+   * AND minTemperatureOneDay < winterLimitTemperature
+   *
+   * Heater Mode 3
+   * IF minTemperatureOneDay < extremeTemperature
+   */
+  if (currentTemperature > switchOffTemperature) {
+    sendCommand(Heater_Mode, 0)
+    logInfo("Heating Control", "Outdoor Temperature ("+currentTemperature+") greater than "+switchOffTemperature+". New Heater Mode: 0")
+  } else if (maxTemperatureThreeDays < switchOffTemperature && avrgTemperatueThreeDays < switchOverTemperature) {
+    if (minTemperatureOneDay < extremeTemperature) {
+      sendCommand(Heater_Mode, 3)
+      logInfo("Heating Control", "Min Temperature ("+minTemperatureOneDay+") less than "+extremeTemperature+". New Heater Mode: 3")
+    } else if (minTemperatureOneDay < winterLimitTemperature) {
+      sendCommand(Heater_Mode, 2)
+      logInfo("Heating Control", "Min Temperature ("+minTemperatureOneDay+") less than "+winterLimitTemperature+". New Heater Mode: 2")
+    } else {
+      sendCommand(Heater_Mode, 1)
+      logInfo("Heating Control", "Max Temperature ("+maxTemperatureThreeDays+") less than "+switchOffTemperature+" and Average Temperature ("+avrgTemperatueThreeDays+") less than "+switchOverTemperature+". New Heater Mode: 1")
+    }
+  } else {
+    sendCommand(Heater_Mode, 0)
+  }

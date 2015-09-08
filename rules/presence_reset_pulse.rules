@@ -1,0 +1,18 @@
+/*
+ * Reset the pulse to start counting down for 15min again
+ * There are various items which could lead to a puls count
+ * like Movement, Mobile Phones or Switching Lights on
+ */
+
+rule "Presence Reset Pulse"
+when
+  Item NetworkDevice_iPhone1 received update ON or
+  Item Movement_FF_BedRoom received update ON or
+  Item Movement_FF_DressingRoom received update ON or
+  Item Movement_GF received update ON or
+  Item Movement_Laundry received update ON
+then
+  logInfo("PresenceCheck", "A Pulse (Network, Movement) leads to a reset of Pulsed state.")
+  sendCommand(Presence_State_Pulsed, 15)
+  sendCommand(Is_Someone_Present, ON)
+end

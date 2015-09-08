@@ -1,0 +1,116 @@
+sitemap default label="Burgstraße 9"
+{
+  Frame label="Erdgeschoss" icon="groundfloor" {
+    Group label="Wohnzimmer" icon="livingroom" {
+      Frame label="Licht" {
+        Slider item=Light_GF_LivingRoom_Ceiling icon="message_light_intensity"
+        Slider item=Light_GF_LivingRoom_Wall icon="message_light_intensity"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_GF_LivingRoom valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+        Selection item=LivingRoom_Operating_Mode label="Betriebsart" mappings=[1="Comfort", 2="StandBy", 3="Aus", 4="Frostschutz"] icon="sani_heating"
+      }
+    }
+    Group label="Esszimmer" icon="diningroom" {
+      Frame label="Licht" {
+        Slider item=Light_GF_DiningRoom_Ceiling label="Deckenleuchte" icon="message_light_intensity"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_GF_LivingRoom_DiningRoom valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+        Selection item=DiningRoom_Operating_Mode label="Betriebsart" mappings=[1="Comfort", 2="StandBy", 3="Aus", 4="Frostschutz"] icon="sani_heating"
+      }
+    }
+
+    Group label="Küche" icon="kitchen" {
+      Frame label="Licht" {
+        Switch item=Light_GF_Kitchen_Countertop icon="light_light"
+        Switch item=Light_GF_Kitchen_Ceiling icon="light_light"
+        Switch item=Light_GF_Kitchen_Bar icon="light_light"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_GF_Kitchen valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+        Selection item=Kitchen_Operating_Mode label="Betriebsart" mappings=[1="Comfort", 2="StandBy", 3="Aus", 4="Frostschutz"] icon="sani_heating"
+      }
+    }
+
+    Group label="Bad" icon="bath" {
+      Frame label="Heizung" {
+        Text item=Temperature_GF_Bath
+        Text item=SetPoint_Radiator_GF_Bath
+        Text item=Battery_Termostat_GF_Bath icon="battery"
+        Text item=Battery_Contact_GF_Bath icon="battery"
+      }
+    }
+  }
+
+
+  Frame label="Erster Stock" icon="firstfloor" {
+    Group label="Büro" icon="office" {
+      Frame label="Licht" {
+        Slider item="Light_FF_Office_Desk" icon="message_light_intensity"
+        Switch item="Light_FF_Office_TV" icon="light_light"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_FF_Office_Door label="Tür [%.1f °C]" valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+        Text item=Temperature_FF_Office_Desk label="Schreibtisch [%.1f °C]" valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+        Selection item=Office_Operating_Mode label="Betriebsart" mappings=[1="Comfort", 2="StandBy", 3="Aus", 4="Frostschutz"] icon="sani_heating"
+        Selection item=Office_Sector_Selection label="Heizbereich" mappings=[1="Ganzer Raum", 2="Schreibtisch"] icon="sani_heating_temp"
+      }
+      Frame label="Infos" {
+        Text item=Battery_Controller_FF_Office icon="battery"
+      }
+    }
+    Group label="Schlafzimmer" icon="bedroom" {
+      Frame label="Licht" {
+        Switch item="Light_FF_BedRoom" icon="light_light"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_FF_BedRoom valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+      }
+    }
+    Group label="Bad" icon="bath" {
+      Frame label="Licht" {
+        Switch item="Light_FF_Bath" icon="light_light"
+      }
+      Frame label="Heizung" {
+        Text item=Temperature_FF_Bath
+        Text item=SetPoint_Radiator_FF_Bath
+        Text item=Battery_Termostat_FF_Bath icon="battery"
+      }
+    }
+  }
+
+  Frame label="Flur" {
+    Selection item=GroundFloor_Operating_Mode label="Betriebsart" mappings=[1="Comfort", 2="StandBy", 3="Aus", 4="Frostschutz"] icon="sani_heating"   
+  }
+
+  Frame label="Strom" {
+    Text item=PowerConsumption_Current_Total icon="measure_power_meter" label="Aktueller Gesamtverbrauch [%.3f kW]"
+    Text item=PowerConsumption_Current_Supply icon="measure_photovoltaic_inst" label="Aktuelle Einspeißung [%.3f kW]"
+    Text item=PowerConsumption_Current_External icon="measure_power_meter" label="Aktueller Fremdbezug [%.3f kW]"
+    Group label="Statistiken" icon="line" {
+      Frame label="Zählerstände" {
+        Text item=PowerConsumption_Meter_Supply icon="measure_photovoltaic_inst" label="Einspeisung [%.0f kWh]"
+        Text item=PowerConsumption_Meter_External icon="measure_power_meter" label="Fremdbezug [%.0f kWh]"
+        Text item=PowerProduction_Meter_PV icon="measure_photovoltaic_inst" label="Produktion [%.0f kWh]"
+      }
+      Frame label="Vortagswerte" {
+        Text item=PowerConsumption_Total_LastDay icon="measure_power_meter" label="Gesamtverbrauch [%.3f kWh]"
+        Text item=PowerProduction_Total_LastDay icon="measure_power_meter" label="Gesamtproduktion [%.3f kWh]"
+        Text item=PowerSupply_Total_LastDay icon="measure_power_meter" label="Gesamteinspeisung [%.3f kWh]"
+        Text item=PowerExternal_Total_LastDay icon="measure_power_meter" label="Gesamtfremdbezug [%.3f kWh]"
+      }
+    }
+  }
+
+  Frame label="Draußen" {
+    Text item=Temperature_OD_Window_Livingroom label="Außentemperatur [%.1f °C]" valuecolor=[>26="red",>22="orange",>19="green",<=19="blue"]
+  }
+
+  Frame label="Status" {
+    Selection item=Heater_Logic_Mode label="Heizlogik" icon="sani_heating_automatic" mappings=[0="Immer aus", 1="Nur Anwesenheit", 2="Standby bei Abwesenheit", 3="Immer an"]
+    Switch item=I_am_on_vacation label="Ich bin in Urlaub"
+    Switch item=I_am_on_holiday label="Ich habe Urlaub"
+    Switch item=Is_Someone_Present label="Ich bin zu Hause"
+  }
+}

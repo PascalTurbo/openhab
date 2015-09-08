@@ -1,0 +1,20 @@
+/*
+ * Other states that prevent the puls state form disabling the presence state
+ */
+
+// If TV is switched on -> Someone should be at home
+rule "Presence TV - ON"
+when
+  Item Socket_GF_LivingRoom_TV received update ON
+then
+  sendCommand(Is_Someone_Present, ON)
+  sendCommand(Presence_State_TV, ON)
+end
+
+// If TV is switched off -> Stop blocking presence pulse
+rule "Presence TV - OFF"
+when
+  Item Socket_GF_LivingRoom_TV received update OFF
+then
+  sendCommand(Presence_State_TV, OFF)
+end

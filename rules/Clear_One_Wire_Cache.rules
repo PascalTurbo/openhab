@@ -1,0 +1,12 @@
+// This rule is a hack presented on the wiki
+rule "checkOneWireDevices"
+when
+   Time cron "0 /5 * * * ?"
+then
+    TemperatureSensors?.members.forEach[element1,index1|
+      if (element1.state==Undefined || element1.state==Uninitialized) {
+        logError("OneWire","State of OneWireDevice: "+element1.name+" is "+element1.state.toString)
+        OneWireClearCacheOneItem.sendCommand(element1.name)
+     }  
+   ]
+end

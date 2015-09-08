@@ -1,0 +1,35 @@
+/* Heating */
+
+/* General Items */
+Switch Operating_Mode_Summer          "Is summer"                           (Heater)    { knx="5/0/4" }
+Switch Error_Actuator_Heating_GF      "Störung Heizungsaktor EG"            (Heater)    { knx="4/3/0" }
+Switch Error_Actuator_Heating_FF      "Störung Heizungsaktor 1. Stock"      (Heater)
+
+
+// Betriebsarten:
+// 1 (0x01): Komfort
+// 2 (0x02): Standby
+// 3 (0x03): Nacht
+// 4 (0x04): Frostschutz
+Number DiningRoom_Operating_Mode      "Esszimmer - Betriebsart"       (HeaterOperatingModes, HeaterComfortZone)    { knx="<5.010:4/1/12" }
+Number LivingRoom_Operating_Mode      "Wohnzimmer - Betriebsart"      (HeaterOperatingModes, HeaterComfortZone)    { knx="<5.010:4/1/13" }
+Number Office_Operating_Mode          "Büro - Betriebsart"            (HeaterOperatingModes, HeaterManualZone)     { knx="<5.010:4/1/14" }
+Number Kitchen_Operating_Mode         "Küche - Betriebsart"           (HeaterOperatingModes, HeaterOutbuildings)   { knx="<5.010:4/1/6" }
+Number GroundFloor_Operating_Mode     "Flur Unten - Betriebsart"      (HeaterOperatingModes, HeaterOutbuildings)   { knx="<5.010:4/1/7" }
+
+// Heizmodi
+// Es gibt verschiedene Heizmodi. Diese werden zentral in einem Objekt gehalten. 
+// Pro Zone wird in einer Regel definiert, wie sich diese bei einem Modus verhällt
+// 0 : Alle Heizungen aus
+// 1 : Nur heizen bei Anwesenheit. Bei Abwesenheit absenken, Nachts komplett aus
+// 2 : Nur heizen bei Anwesenheit. Bei Abwesenheit und Nachts absenken
+// 3 : Immer heizen
+Number Heater_Mode      "Heizmodus"                       (Heater) 
+Switch Heater_Presence  "Anwesenheitsstatus für Heizung"  (Heater) 
+
+// Stellwerte
+Number SetPoint_Radiator_Office       "Stellwert Heizkörper Büro"           (SetPoints)   { knx="5.001:4/2/0" }
+Number SetPoint_Radiator_LivingRoom   "Stellwert Heizkörper Wohnzimmer"     (SetPoints)   { knx="5.001:4/2/2" }
+Number SetPoint_Radiator_DiningRoom   "Stellwert Heizkörper Esszimmer"      (SetPoints)   { knx="5.001:4/2/1" }
+Number SetPoint_Radiator_Kitchen      "Stellwert Heizkörper Küche"          (SetPoints)   { knx="5.001:4/2/3" }
+Number SetPoint_Radiator_GroundFloor  "Stellwert Heizkörper Hausgang unten" (SetPoints)   { knx="5.001:4/2/4" }

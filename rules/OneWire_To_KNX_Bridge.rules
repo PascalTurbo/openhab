@@ -1,0 +1,68 @@
+import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.*
+import org.openhab.core.persistence.*
+
+// Function2 bedeutet, dass die Funktion 2 Parameter erwartet
+val org.eclipse.xtext.xbase.lib.Functions$Function2 updateTemperature = [
+    org.openhab.core.items.GenericItem sensor,
+    org.openhab.core.items.GenericItem temperature |
+    if ( sensor.state < 85 && sensor.state != -0.0625 ) {
+      temperature.postUpdate(sensor.state)
+    }
+]
+
+rule "Update GF_LivingRoom Sensor"
+when
+Item Sensor_GF_LivingRoom received update
+then
+  updateTemperature.apply(Sensor_GF_LivingRoom, Temperature_GF_LivingRoom)
+end
+
+rule "Update GF_Corridor_Stairs Sensor"
+when
+Item Sensor_GF_Corridor_Stairs received update
+then  
+  updateTemperature.apply(Sensor_GF_Corridor_Stairs, Temperature_GF_Corridor_Stairs)
+end
+
+rule "Update GF_Kitchen Sensor"
+when
+Item Sensor_GF_Kitchen received update
+then
+  updateTemperature.apply(Sensor_GF_Kitchen, Temperature_GF_Kitchen)
+end
+
+rule "Update FF_Corridor_stairs Sensor"
+when
+Item Sensor_FF_Corridor_Stairs received update
+then
+  updateTemperature.apply(Sensor_FF_Corridor_Stairs, Temperature_FF_Corridor_Stairs)
+end
+
+rule "Update Sensor_FF_BedRoom"
+when
+Item Sensor_FF_BedRoom received update
+then
+  updateTemperature.apply(Sensor_FF_BedRoom, Temperature_FF_BedRoom)
+end
+
+rule "Update Sensor_FF_DressingRoom"
+when
+Item Sensor_FF_DressingRoom received update
+then
+  updateTemperature.apply(Sensor_FF_DressingRoom, Temperature_FF_DressingRoom)
+end
+
+rule "Update Sensor_OD_Window_Livingroom"
+when
+Item Sensor_OD_Window_Livingroom received update
+then
+  updateTemperature.apply(Sensor_OD_Window_Livingroom, Temperature_OD_Window_Livingroom)
+end
+
+rule "Update Sensor_FF_Office"
+when
+Item Sensor_FF_Office_Door received update
+then
+  updateTemperature.apply(Sensor_FF_Office_Door, Temperature_FF_Office)
+end

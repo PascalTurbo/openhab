@@ -1,0 +1,42 @@
+import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.*
+
+var Timer TV_SWITCH_STATE_TIMER
+
+rule "Switch TV Socket"
+when 
+  Item Socket_GF_LivingRoom_TV_Controll received update
+then
+  if (Socket_GF_LivingRoom_TV.state == OFF) {
+    sendCommand(Socket_GF_LivingRoom_TV_Controll_LED, OFF)
+    sendCommand(Socket_GF_LivingRoom_TV, ON)
+  } else {
+    // Setup the right state for the switch count
+    if (Socket_GF_LivingRoom_TV_Controll_State.state == Undefined || Socket_GF_LivingRoom_TV_Controll_State.state == Uninitialized) {
+      sendCommand(Socket_GF_LivingRoom_TV_Controll_State, 0)
+    }
+  	// If button is pressed the first time
+  	if (Socket_GF_LivingRoom_TV_Controll_State.state == 0) {
+      // change the color of the led to red
+      sendCommand(Socket_GF_LivingRoom_TV_Controll_LED, ON)
+      sendCommand(Socket_GF_LivingRoom_TV_Controll_State, 1)
+      // Reset if button isn't pressed a second time within 10 seconds
+      TV_SWITCH_STATE_TIMER = createTimer(now.plusSeconds(10)) [|
+        sendCommand(Socket_GF_LivingRoom_TV_Controll_LED, OFF)
+        sendCommand(Socket_GF_LivingRoom_TV_Controll_State, 0)
+      ]    
+    // If button is pressed the second time
+    } else {
+      // Switch off the TV and set the led to white
+      sendCommand(Socket_GF_LivingRoom_TV_Controll_LED, OFF)
+      sendCommand(Socket_GF_LivingRoom_TV, OFF)
+      sendCommand(Socket_GF_LivingRoom_TV_Controll_State, 0)
+      // and reset the timer
+      if (TV_SWITCH_STATE_TIMER!=null) {
+        TV_SWITCH_STATE_TIMER.cancel
+        TV_SWITCH_STATE_TIMER = null
+      }
+    }
+  }
+end
+

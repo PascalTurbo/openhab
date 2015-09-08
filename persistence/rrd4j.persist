@@ -1,0 +1,11 @@
+Strategies {
+    // for rrd charts, we need a cron strategy
+    everyMinute : "0 * * * * ?"
+}
+
+Items {
+    TechnicalItems* : strategy = everyChange, restoreOnStartup
+    TemperatureKNX* : strategy = everyUpdate, restoreOnStartup
+    Heater* : strategy = everyChange, restoreOnStartup
+    Presence* : strategy = everyChange, restoreOnStartup
+}

@@ -1,0 +1,3 @@
+/* Network Devices can be used for detecting presence */
+Switch NetworkDevice_iPhone1  (MobilePhones) {nh="NetworkDevice_iPhone1"}
+Switch NetworkDevice_iPhone2    (MobilePhones) {nh="NetworkDevice_iPhone1"}

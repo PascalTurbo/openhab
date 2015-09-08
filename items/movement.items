@@ -1,0 +1,4 @@
+Switch Movement_FF_BedRoom       "Bewegungsstatus vor Schlafzimmer"  (Movement)  { knx="1/7/1" }
+Switch Movement_FF_DressingRoom  "Bewegungsstatus vor Ankleideraum"  (Movement)  { knx="5/4/0" }
+Switch Movement_GF               "Bewegungsstatus Hausgang Unten"    (Movement)  { knx="5/4/1" }
+Switch Movement_Laundry          "Bewegungsstatus Waschküche"        (Movement)  { knx="5/4/2" }

@@ -1,0 +1,34 @@
+import org.openhab.core.library.types.*
+/*
+ * Decrease the pulse count by one each minute
+ * If zero is reached, presence is set to off unless there is a manual set state which prevents 
+ * setting the presence state to off (PresenceStateSwitches)
+ * Because there is no motion sensor in the bedroom, detection is disabled between 22:00 and 08:00
+ */
+
+rule "Presence Decrease Pulse"
+when
+  Time cron "0 * 8-22 * * ?"
+then
+  if (!(Presence_State_Pulsed.state instanceof DecimalType)) {
+    sendCommand(Presence_State_Pulsed, 0)
+  }
+
+  var state = (Presence_State_Pulsed.state as DecimalType).intValue
+
+  if (state > 0) {
+    sendCommand(Presence_State_Pulsed, state - 1)
+  } else {
+    // Check other Presence States first
+    var int active_switches = 0
+    PresenceStateSwitches?.members.forEach[element1,index1|
+      if (element1.state == ON) {
+        active_switches = active_switches + 1
+      }
+    ]
+    if (active_switches == 0) {
+      logInfo("PresenceCheck", "Pulsed Counter is zero. Nobody is present anymore.")
+      sendCommand(Is_Someone_Present, OFF)
+    }
+  }
+end

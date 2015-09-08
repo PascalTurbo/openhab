@@ -1,0 +1,20 @@
+// If one of the heating Actuators Error Objects receives the Status "ON"
+rule "Heating Warn on actuator error GF"
+when
+  Error_Actuator_Heating_GF received update ON
+then
+  var String subject = "Heating Control ERROR"
+  var String message = "Heating actuator ground floor got an error"
+  logError(subject,message)
+  pushNotification("1386da9401a1f42b965b40d73e46d3f13409d283", subject, message, 2)
+end
+
+rule "Heating Warn on actuator error FF"
+when
+  Error_Actuator_Heating_FF received update ON
+then
+  var String subject = "Heating Control ERROR"
+  var String message = "Heating actuator first floor got an error"
+  logError(subject,message)
+  pushNotification("1386da9401a1f42b965b40d73e46d3f13409d283", subject, message, 2)
+end
